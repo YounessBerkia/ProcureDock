@@ -8,6 +8,12 @@ Webbasiertes IT-Beschaffungs-Dashboard, entwickelt als Portfolioprojekt für die
 
 ---
 
+## Demo
+
+![ProcureDock Demo](assets/demo.gif)
+
+---
+
 ## Was ist ProcureDock?
 
 In vielen IT-Abteilungen läuft die Beschaffung noch über Excel-Listen, manuelle Preisrecherchen und Bestellungen per E-Mail. ProcureDock zeigt, wie das einfacher geht: ein zentrales Dashboard, das Preisvergleiche, Budgetverfolgung und Lieferantenbewertungen an einem Ort zusammenführt.
