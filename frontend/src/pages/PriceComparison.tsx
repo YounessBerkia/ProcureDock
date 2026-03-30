@@ -42,10 +42,10 @@ export const PriceComparison = () => {
   return (
     <div className="flex flex-col gap-8">
       <PageIntro
-        eyebrow="Pricing Intelligence"
-        title="Price comparison"
-        description="Review supplier offers in one tidy place, compare stock availability, and track the cheapest buying window before placing orders."
-        meta="Live market view"
+        eyebrow="Marktübersicht"
+        title="Preisvergleich"
+        description="Lieferantenangebote auf einen Blick vergleichen, Verfügbarkeiten prüfen und den günstigsten Kaufzeitpunkt vor der nächsten Bestellung erkennen."
+        meta="Aktuelle Marktpreise"
       />
 
       {loading && (
@@ -66,30 +66,30 @@ export const PriceComparison = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             <StatCard
               icon={BadgePercent}
-              label="Best live offer"
+              label="Bestes Angebot"
               value={`€${lowestPrice.toLocaleString('de-DE', { minimumFractionDigits: 2 })}`}
-              hint="Lowest currently tracked price across all offers."
+              hint="Derzeit günstigster erfasster Preis über alle Angebote."
               accent="blue"
             />
             <StatCard
               icon={Activity}
-              label="Average price"
+              label="Durchschnittspreis"
               value={`€${averagePrice.toLocaleString('de-DE', { minimumFractionDigits: 2 })}`}
-              hint="Useful baseline before accepting a quote."
+              hint="Nützliche Vergleichsbasis vor Angebotsannahme."
               accent="slate"
             />
             <StatCard
               icon={Store}
-              label="Active vendors"
+              label="Aktive Lieferanten"
               value={String(uniqueVendors)}
-              hint="Suppliers participating in the current comparison set."
+              hint="Lieferanten im aktuellen Vergleichsset."
               accent="green"
             />
             <StatCard
               icon={Boxes}
-              label="In stock rate"
+              label="Verfügbarkeitsquote"
               value={`${inStockRate.toFixed(0)}%`}
-              hint="Share of tracked offers that are immediately available."
+              hint="Anteil der Angebote, die sofort lieferbar sind."
               accent="orange"
             />
           </div>
@@ -99,8 +99,8 @@ export const PriceComparison = () => {
 
             <SurfaceCard>
               <SectionHeading
-                title="Cheapest offers"
-                description="Current leaders across the tracked catalogue."
+                title="Günstigste Angebote"
+                description="Aktuell preisgünstigste Artikel im erfassten Sortiment."
               />
               <div className="space-y-3">
                 {cheapestOffers.map((price) => (
@@ -115,7 +115,7 @@ export const PriceComparison = () => {
                           €{price.price.toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                         </p>
                         <p className={`text-xs ${price.inStock ? 'text-green-600' : 'text-red-500'}`}>
-                          {price.inStock ? 'In stock' : 'Out of stock'}
+                          {price.inStock ? 'Auf Lager' : 'Nicht verfügbar'}
                         </p>
                       </div>
                     </div>

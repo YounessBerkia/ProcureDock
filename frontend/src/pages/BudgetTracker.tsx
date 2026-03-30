@@ -51,10 +51,10 @@ export const BudgetTracker = () => {
   return (
     <div className="flex flex-col gap-8">
       <PageIntro
-        eyebrow="Budget Command"
-        title="Budget tracker"
-        description="Keep planned and actual procurement spend aligned with quarterly targets while surfacing where the next budget decision should happen."
-        meta="Quarter planning"
+        eyebrow="Finanzsteuerung"
+        title="Budgetverwaltung"
+        description="Geplante und tatsächliche Beschaffungsausgaben mit den Quartalsvorgaben abgleichen und Handlungsbedarf bei der nächsten Budgetentscheidung frühzeitig erkennen."
+        meta="Quartalsplanung"
       />
 
       {loading && (
@@ -75,30 +75,30 @@ export const BudgetTracker = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             <StatCard
               icon={CircleDollarSign}
-              label="Total spent"
+              label="Gesamtausgaben"
               value={`€${stats.totalSpent.toLocaleString('de-DE', { minimumFractionDigits: 2 })}`}
-              hint={`€${stats.remaining.toLocaleString('de-DE', { minimumFractionDigits: 2 })} remaining this quarter.`}
+              hint={`€${stats.remaining.toLocaleString('de-DE', { minimumFractionDigits: 2 })} verbleiben in diesem Quartal.`}
               accent="blue"
             />
             <StatCard
               icon={WalletCards}
-              label="Planned budget"
+              label="Geplantes Budget"
               value={`€${stats.totalBudget.toLocaleString('de-DE', { minimumFractionDigits: 2 })}`}
-              hint="Full planned budget for the active quarter."
+              hint="Gesamtes Planbudget für das laufende Quartal."
               accent="slate"
             />
             <StatCard
               icon={ReceiptText}
-              label="Approved entries"
+              label="Freigegebene Einträge"
               value={String(approvedEntries)}
-              hint="Approved, ordered, or already delivered purchases."
+              hint="Genehmigte, bestellte oder bereits gelieferte Beschaffungen."
               accent="green"
             />
             <StatCard
               icon={LayoutGrid}
-              label="Categories tracked"
+              label="Erfasste Kategorien"
               value={String(categoriesTracked)}
-              hint="Budget spread across the tracked procurement categories."
+              hint="Budgetverteilung über die erfassten Beschaffungskategorien."
               accent="orange"
             />
           </div>

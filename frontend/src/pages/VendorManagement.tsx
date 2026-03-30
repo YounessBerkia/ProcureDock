@@ -42,10 +42,10 @@ export const VendorManagement = () => {
   return (
     <div className="flex flex-col gap-8">
       <PageIntro
-        eyebrow="Supplier Network"
-        title="Vendor management"
-        description="Keep your supplier base organized, identify the most reliable partners, and review order history before negotiating the next purchase."
-        meta="Relationship view"
+        eyebrow="Lieferantennetzwerk"
+        title="Lieferantenverwaltung"
+        description="Lieferantenstamm pflegen, zuverlässigste Partner identifizieren und Bestellhistorie vor der nächsten Preisverhandlung einsehen."
+        meta="Lieferantenübersicht"
       />
 
       {loading && (
@@ -66,30 +66,30 @@ export const VendorManagement = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             <StatCard
               icon={PackageSearch}
-              label="Tracked vendors"
+              label="Erfasste Lieferanten"
               value={String(vendors.length)}
-              hint="Suppliers currently visible in the procurement workspace."
+              hint="Lieferanten, die aktuell im Beschaffungssystem geführt werden."
               accent="blue"
             />
             <StatCard
               icon={Star}
-              label="Average rating"
+              label="Ø Bewertung"
               value={averageRating.toFixed(1)}
-              hint="Overall supplier satisfaction across the tracked base."
+              hint="Durchschnittliche Lieferantenzufriedenheit über alle erfassten Partner."
               accent="orange"
             />
             <StatCard
               icon={Truck}
-              label="Average delivery"
-              value={`${averageDelivery.toFixed(1)} days`}
-              hint="Typical lead time for the currently active vendors."
+              label="Ø Lieferzeit"
+              value={`${averageDelivery.toFixed(1)} Tage`}
+              hint="Typische Vorlaufzeit der aktuell aktiven Lieferanten."
               accent="green"
             />
             <StatCard
               icon={Gauge}
-              label="Average reliability"
+              label="Ø Zuverlässigkeit"
               value={`${averageReliability.toFixed(0)}%`}
-              hint="Healthy reliability level across the supplier network."
+              hint="Zuverlässigkeitsniveau über das gesamte Lieferantennetzwerk."
               accent="slate"
             />
           </div>
@@ -97,18 +97,18 @@ export const VendorManagement = () => {
           {featuredVendor && (
             <SurfaceCard>
               <SectionHeading
-                title="Featured supplier"
-                description="The best-rated supplier in the current portfolio."
+                title="Toplieferant"
+                description="Bestbewerteter Lieferant im aktuellen Lieferantenportfolio."
               />
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <p className="text-lg font-semibold text-gray-900">{featuredVendor.name}</p>
                   <p className="mt-1 text-sm text-gray-500">
-                    {featuredVendor.reliability}% reliability, {featuredVendor.avgDeliveryDays ?? '—'} day average delivery, {featuredVendor._count.budgetEntries} tracked orders.
+                    {featuredVendor.reliability}% Zuverlässigkeit · Ø {featuredVendor.avgDeliveryDays ?? '—'} Tage Lieferzeit · {featuredVendor._count.budgetEntries} erfasste Bestellungen
                   </p>
                 </div>
                 <div className="rounded-2xl bg-blue-50 px-4 py-3 text-right">
-                  <p className="text-xs font-medium uppercase tracking-wide text-blue-500">Top rating</p>
+                  <p className="text-xs font-medium uppercase tracking-wide text-blue-500">Beste Bewertung</p>
                   <p className="mt-1 text-2xl font-semibold text-blue-700">{featuredVendor.rating.toFixed(1)} / 5</p>
                 </div>
               </div>
