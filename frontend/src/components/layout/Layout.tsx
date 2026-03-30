@@ -19,7 +19,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
       {/* Main content - centered with max-width */}
       <div className="relative z-10 flex-1 ml-0 lg:ml-72">
-        <div className="mx-auto flex min-h-screen w-full max-w-[1480px] flex-col px-3 py-6 md:px-6 md:py-8 lg:px-8">
+        <div className="mx-auto flex min-h-screen w-full max-w-[1200px] flex-col px-4 py-6 md:px-8 md:py-8 lg:px-12">
           {/* Header */}
           <Header onMenuClick={() => setSidebarOpen(true)} />
 
