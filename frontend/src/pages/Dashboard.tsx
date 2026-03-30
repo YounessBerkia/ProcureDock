@@ -44,49 +44,49 @@ const overviewTrend = [
 
 export const Dashboard = () => {
   const recentOrders = [
-    { product: 'Dell Latitude 5540', vendor: 'Alternate', amount: 1299.0, date: '28.03.2026' },
-    { product: 'HP ProDesk 400', vendor: 'Notebooksbilliger', amount: 849.5, date: '25.03.2026' },
-    { product: 'Logitech MX Master 3', vendor: 'Amazon Business', amount: 99.9, date: '24.03.2026' },
-    { product: 'Samsung T7 SSD 1TB', vendor: 'Alternate', amount: 89.99, date: '22.03.2026' },
-    { product: 'Philips 27" Monitor', vendor: 'Cyberport', amount: 249.0, date: '20.03.2026' },
+    { product: 'Dell Latitude 5540', vendor: 'Alternate', amount: 1299.0, date: '28.03.2026', abteilung: 'IT-Abteilung' },
+    { product: 'HP ProDesk 400 G9', vendor: 'Notebooksbilliger', amount: 849.5, date: '25.03.2026', abteilung: 'Buchhaltung' },
+    { product: 'Logitech MX Master 3', vendor: 'Bechtle', amount: 99.9, date: '24.03.2026', abteilung: 'Verwaltung' },
+    { product: 'Samsung T7 SSD 1TB', vendor: 'Alternate', amount: 89.99, date: '22.03.2026', abteilung: 'IT-Abteilung' },
+    { product: 'Philips 27" Monitor 272B1G', vendor: 'Cyberport', amount: 249.0, date: '20.03.2026', abteilung: 'Geschäftsführung' },
   ];
 
   return (
     <div className="flex flex-col gap-8">
       <PageIntro
-        eyebrow="Control Center"
-        title="Procurement dashboard"
-        description="A cleaner overview of price movement, supplier health, and budget usage so the most important signals are visible at a glance."
-        meta="Operations snapshot"
+        eyebrow="Beschaffungszentrale"
+        title="IT-Beschaffung Q1 2026"
+        description="Zentrales Steuerungsinstrument für die IT-Beschaffung der IHK Wiesbaden. Übersicht über Preise, Lieferanten und Budgetstatus."
+        meta="Betriebsübersicht"
       />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         <StatCard
           icon={CircleDollarSign}
-          label="Spend this quarter"
+          label="Ausgaben dieses Quartals"
           value="€18.850"
-          hint="€31.150 remaining from the planned budget."
+          hint="€31.150 verbleiben vom geplanten Jahresbudget."
           accent="blue"
         />
         <StatCard
           icon={ShieldCheck}
-          label="Vendor reliability"
+          label="Lieferantenzuverlässigkeit"
           value="91%"
-          hint="Top vendors are performing above the target reliability band."
+          hint="Hauptlieferanten erfüllen die Zielwerte der Leistungsvereinbarung."
           accent="green"
         />
         <StatCard
           icon={Truck}
-          label="Average delivery"
-          value="2.6 days"
-          hint="Fast shipping across active hardware suppliers."
+          label="Ø Lieferzeit"
+          value="2,6 Tage"
+          hint="Schnelle Lieferung durch aktive Hardware-Lieferanten sichergestellt."
           accent="orange"
         />
         <StatCard
           icon={PackageCheck}
-          label="Open orders"
+          label="Offene Bestellungen"
           value="12"
-          hint="Most recent orders are already approved or delivered."
+          hint="Die meisten Bestellungen sind bereits genehmigt oder geliefert."
           accent="slate"
         />
       </div>
@@ -116,9 +116,9 @@ export const Dashboard = () => {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(320px,1fr)]">
         <SurfaceCard padding="lg">
           <SectionHeading
-            title="Spending momentum"
-            description="Monthly spend and negotiated savings across the current planning window."
-            action={<span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">6 months tracked</span>}
+            title="Ausgabenentwicklung 2026"
+            description="Monatliche Ausgaben und erzielte Einsparungen im laufenden Planungszeitraum."
+            action={<span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">6 Monate erfasst</span>}
           />
 
           <div className="h-80 rounded-[24px] bg-gradient-to-b from-slate-50 to-white p-4">
@@ -155,14 +155,14 @@ export const Dashboard = () => {
         <div className="flex flex-col gap-6">
           <SurfaceCard>
             <SectionHeading
-              title="Procurement pulse"
-              description="Where the current cycle is strongest."
+              title="Beschaffungsstatus"
+              description="Aktuelle Kennzahlen des laufenden Beschaffungszyklus."
             />
             <div className="space-y-4">
               {[
-                { label: 'Savings realized', value: '€2.140', width: '78%' },
-                { label: 'Orders approved', value: '86%', width: '86%' },
-                { label: 'Vendors above SLA', value: '91%', width: '91%' },
+                { label: 'Erzielte Einsparungen', value: '€2.140', width: '78%' },
+                { label: 'Bestellungen genehmigt', value: '86%', width: '86%' },
+                { label: 'Lieferanten über SLA', value: '91%', width: '91%' },
               ].map((item) => (
                 <div key={item.label} className="rounded-2xl bg-gray-50 px-4 py-4">
                   <div className="mb-2 flex items-center justify-between text-sm">
@@ -179,14 +179,14 @@ export const Dashboard = () => {
 
           <SurfaceCard>
             <SectionHeading
-              title="Priority actions"
-              description="Tasks worth attention before the next order wave."
+              title="Offene Aufgaben"
+              description="Handlungsbedarf vor der nächsten Bestellrunde."
             />
             <div className="space-y-3">
               {[
-                'Review Dell Latitude price dip from Alternate.',
-                'Approve Q2 monitor refresh budget allocation.',
-                'Re-rate Cyberport after recent delivery improvement.',
+                'Preisrückgang Dell Latitude bei Alternate prüfen.',
+                'Budgetfreigabe für Q2-Monitorerneuerung beantragen.',
+                'Cyberport nach verbesserter Lieferleistung neu bewerten.',
               ].map((item) => (
                 <div key={item} className="rounded-xl bg-gray-50 px-4 py-3 text-sm text-gray-600">
                   {item}
@@ -200,26 +200,29 @@ export const Dashboard = () => {
       <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
         <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
           <div>
-            <h2 className="text-lg font-semibold text-gray-800">Recent orders</h2>
-            <p className="mt-1 text-sm text-gray-500">Latest procurement activity across hardware and peripherals.</p>
+            <h2 className="text-lg font-semibold text-gray-800">Letzte Beschaffungsvorgänge</h2>
+            <p className="mt-1 text-sm text-gray-500">Aktuelle Bestellaktivitäten über Hardware und Peripheriegeräte.</p>
           </div>
-          <span className="text-sm font-medium text-blue-500">5 entries</span>
+          <span className="text-sm font-medium text-blue-500">5 Einträge</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Product
+                  Produkt
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Vendor
+                  Lieferant
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Abteilung
                 </th>
                 <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Amount
+                  Betrag
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Date
+                  Datum
                 </th>
               </tr>
             </thead>
@@ -231,6 +234,9 @@ export const Dashboard = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {order.vendor}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {order.abteilung}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-800">
                     €{order.amount.toLocaleString('de-DE', { minimumFractionDigits: 2 })}

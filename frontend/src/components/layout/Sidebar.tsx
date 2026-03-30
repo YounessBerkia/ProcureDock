@@ -112,7 +112,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <div className="border-t border-white/10 p-4 lg:p-5">
           <div className="rounded-[24px] border border-white/10 bg-white/6 p-4 shadow-[0_10px_30px_rgba(15,23,42,0.2)] transition-shadow duration-300 hover:shadow-[0_16px_40px_rgba(15,23,42,0.28)]">
             <div className="mb-3 flex items-center justify-between">
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Budget snapshot</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Budgetstand</p>
               <span className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-blue-100">
                 Q1 2026
               </span>
@@ -128,7 +128,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               />
             </div>
             <p className="mt-3 text-xs leading-5 text-slate-400">
-              Procurement is comfortably within target for this quarter.
+              Budget im Soll – keine Eskalation erforderlich.
             </p>
           </div>
         </div>

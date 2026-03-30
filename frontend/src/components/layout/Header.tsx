@@ -8,19 +8,19 @@ interface HeaderProps {
 const routeMeta: Record<string, { title: string; subtitle: string }> = {
   '/': {
     title: 'Dashboard',
-    subtitle: 'Live view of procurement, budget usage, and supplier performance.',
+    subtitle: 'Gesamtübersicht über Beschaffungsvorgänge, Budgetstand und Lieferantenleistung.',
   },
   '/preisvergleich': {
-    title: 'Price Comparison',
-    subtitle: 'Compare live offers, spot the best deal, and review price movement.',
+    title: 'Preisvergleich',
+    subtitle: 'Aktuelle Angebote vergleichen, Bestpreise identifizieren und Preisentwicklung verfolgen.',
   },
   '/budget': {
-    title: 'Budget Tracker',
-    subtitle: 'Monitor budget consumption, category mix, and planned vs. approved spend.',
+    title: 'Budgetverwaltung',
+    subtitle: 'Budgetverbrauch, Kategorienverteilung und geplante vs. freigegebene Ausgaben im Überblick.',
   },
   '/vendors': {
-    title: 'Vendor Management',
-    subtitle: 'Track supplier quality, ratings, delivery times, and ordering activity.',
+    title: 'Lieferantenverwaltung',
+    subtitle: 'Lieferantenqualität, Bewertungen, Lieferzeiten und Bestellhistorie verwalten.',
   },
 };
 
@@ -45,7 +45,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
               <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-blue-600">
                 IHK Wiesbaden
               </span>
-              <span className="hidden text-xs text-gray-400 md:inline">Procurement Portal</span>
+              <span className="hidden text-xs text-gray-400 md:inline">Beschaffungsportal</span>
             </div>
             <h1 className="mt-2 truncate text-lg font-semibold text-gray-900 md:text-xl">
               {currentRoute.title}
@@ -61,14 +61,14 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
             <Search className="h-4 w-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search products, vendors, budgets..."
+              placeholder="Produkte, Lieferanten, Budget suchen ..."
               className="w-64 border-0 bg-transparent p-0 text-sm text-gray-700 outline-none placeholder:text-gray-400"
             />
           </label>
 
           <div className="hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 px-3 py-2 text-xs font-medium text-blue-700 md:flex md:items-center md:gap-2">
             <Sparkles className="h-4 w-4" />
-            Updated workspace
+            Zuletzt aktualisiert
           </div>
 
           <button className="relative rounded-2xl border border-gray-200 bg-white p-2.5 text-gray-600 shadow-sm transition-all duration-200 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">

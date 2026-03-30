@@ -27,6 +27,11 @@ export const Layout = ({ children }: LayoutProps) => {
           <main className="mt-6 flex flex-col gap-8 pb-8">
             {children}
           </main>
+
+          {/* Footer */}
+          <footer className="mt-auto border-t border-gray-100 py-4 text-center text-xs text-gray-400">
+            IHK Wiesbaden · IT-Beschaffungsmanagement · Entwickelt von Youness Berkia · 2026
+          </footer>
         </div>
       </div>
     </div>
