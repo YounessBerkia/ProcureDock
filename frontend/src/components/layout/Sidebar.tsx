@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import {
-  ChartNoAxesCombined,
   LayoutDashboard,
   ShoppingCart,
   Wallet,
@@ -9,6 +8,7 @@ import {
   ChevronRight,
   Sparkles,
 } from 'lucide-react';
+import icon from '../../assets/icon.png';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -47,8 +47,8 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       >
         <div className="flex h-20 items-center justify-between border-b border-white/10 px-5 lg:h-auto lg:flex-col lg:items-stretch lg:gap-5 lg:px-6 lg:py-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 shadow-[0_14px_35px_rgba(59,130,246,0.32)]">
-              <ChartNoAxesCombined className="h-5 w-5 text-white" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl overflow-hidden shadow-[0_14px_35px_rgba(59,130,246,0.32)]">
+              <img src={icon} alt="ProcureDock" className="h-full w-full object-cover" />
             </div>
             <div>
               <p className="text-base font-semibold text-white">ProcureDock</p>
