@@ -60,17 +60,22 @@ export const VendorDetailModal = ({ vendorId, onClose, onRatingUpdated }: Vendor
   const [loading, setLoading] = useState(true);
   const [ratingLoading, setRatingLoading] = useState(false);
 
+  // fetch vendor details when modal opens
   useEffect(() => {
     api.get<VendorWithDetails>(`/vendors/${vendorId}`)
       .then((r) => setVendor(r.data))
       .finally(() => setLoading(false));
   }, [vendorId]);
 
+  // submit rating and update local state
   const handleRate = async (rating: number) => {
+    // dont submit twice while loading
     if (!vendor || ratingLoading) return;
+
     setRatingLoading(true);
     try {
       await api.post(`/vendors/${vendorId}/rate`, { rating });
+      // update local state so UI reflects immediately
       setVendor((v) => v ? { ...v, rating } : v);
       onRatingUpdated();
     } finally {

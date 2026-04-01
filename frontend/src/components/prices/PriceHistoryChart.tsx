@@ -21,7 +21,7 @@ interface PriceHistoryChartProps {
   prices: Price[];
 }
 
-// Plugin that injects a gradient fill before each draw
+// plugin that injects gradient fill before each draw - makes the chart look nicer
 const gradientPlugin: Plugin<'line'> = {
   id: 'gradientFill',
   beforeDatasetsDraw(chart) {

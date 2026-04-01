@@ -6,6 +6,7 @@ import {
   scrapeGeizhalsOfferForVendor,
 } from '../scrapers/geizhals';
 
+// rate limit to avoid hammering geizhals
 const SCRAPE_COOLDOWN_MS = 2000;
 let lastScrapeAt = 0;
 
@@ -24,8 +25,8 @@ export const getAllPrices = async (req: Request, res: Response): Promise<void> =
 
     res.status(200).json(prices);
   } catch (error) {
-    console.error('getAllPrices error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('[Prices] Fetch failed:', error);
+    res.status(500).json({ message: 'Preise konnten nicht geladen werden' });
   }
 };
 
@@ -42,14 +43,14 @@ export const getPriceById = async (req: Request, res: Response): Promise<void> =
     });
 
     if (!price) {
-      res.status(404).json({ message: 'Price not found' });
+      res.status(404).json({ message: 'Preis nicht gefunden' });
       return;
     }
 
     res.status(200).json(price);
   } catch (error) {
-    console.error('getPriceById error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('[Prices] Get by ID failed:', { id: req.params.id, error });
+    res.status(500).json({ message: 'Preisdetails konnten nicht geladen werden' });
   }
 };
 
@@ -84,11 +85,12 @@ export const createPrice = async (req: Request, res: Response): Promise<void> =>
 
     res.status(201).json(newPrice);
   } catch (error) {
-    console.error('createPrice error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('[Prices] Create failed:', { body: req.body, error });
+    res.status(500).json({ message: 'Preis konnte nicht gespeichert werden' });
   }
 };
 
+// scrape price from geizhals.de for a specific product/vendor combo
 export const scrapePriceFromGeizhals = async (req: Request, res: Response): Promise<void> => {
   try {
     const { productId, vendorId } = req.body as {
@@ -101,6 +103,7 @@ export const scrapePriceFromGeizhals = async (req: Request, res: Response): Prom
       return;
     }
 
+    // check rate limit - dont want to get blocked
     const now = Date.now();
     const remainingCooldown = SCRAPE_COOLDOWN_MS - (now - lastScrapeAt);
 
@@ -159,7 +162,7 @@ export const scrapePriceFromGeizhals = async (req: Request, res: Response): Prom
       return;
     }
 
-    console.error('scrapePriceFromGeizhals error:', error);
-    res.status(500).json({ message: 'Failed to scrape price from Geizhals' });
+    console.error('[Prices] Scrape failed:', { body: req.body, error });
+    res.status(500).json({ message: 'Preis konnte nicht von Geizhals abgerufen werden' });
   }
 };

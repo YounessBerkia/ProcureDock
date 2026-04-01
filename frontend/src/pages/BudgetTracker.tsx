@@ -16,6 +16,7 @@ export const BudgetTracker = () => {
   const [error, setError] = useState<string | null>(null);
   const [editingEntry, setEditingEntry] = useState<BudgetEntry | null>(null);
 
+  // fetch budget entries and stats together
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
@@ -35,6 +36,7 @@ export const BudgetTracker = () => {
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
+  // delete handler - refresh data after successful delete
   const handleDelete = async (id: string) => {
     try {
       await api.delete(`/budget/${id}`);

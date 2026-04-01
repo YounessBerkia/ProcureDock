@@ -11,6 +11,7 @@ interface State {
   error: Error | null;
 }
 
+// catches errors in child components and shows a fallback UI
 export class ErrorBoundary extends Component<Props, State> {
   public state: State = {
     hasError: false,
@@ -22,6 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // log error for debugging - could send to error tracking service
     console.error('Error caught by ErrorBoundary:', error, errorInfo);
   }
 

@@ -6,6 +6,7 @@ interface VendorCardProps {
   onClick: () => void;
 }
 
+// using charcode for deterministic avatar colors based on vendor name
 const AVATAR_COLORS = [
   'bg-blue-500',
   'bg-green-500',

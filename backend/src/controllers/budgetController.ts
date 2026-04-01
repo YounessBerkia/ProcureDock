@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import prisma from '../lib/prisma';
 import { createBudgetSchema, updateBudgetSchema } from '../schemas/budgetSchema';
 
+// get all budget entries with related product and vendor info
 export const getAllBudget = async (_req: Request, res: Response): Promise<void> => {
   try {
     const entries = await prisma.budgetEntry.findMany({
@@ -10,8 +11,9 @@ export const getAllBudget = async (_req: Request, res: Response): Promise<void> 
     });
     res.status(200).json(entries);
   } catch (error) {
-    console.error('getAllBudget error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    // log with timestamp for easier debugging
+    console.error('[Budget] Fetch failed:', { error, timestamp: new Date().toISOString() });
+    res.status(500).json({ message: 'Budgeteinträge konnten nicht geladen werden' });
   }
 };
 
@@ -19,6 +21,7 @@ export const getBudgetStats = async (_req: Request, res: Response): Promise<void
   try {
     const entries = await prisma.budgetEntry.findMany();
 
+    // TODO: move this to config or database
     const totalBudget = 50000;
 
     // Total spent = sum of amount × quantity
@@ -44,8 +47,8 @@ export const getBudgetStats = async (_req: Request, res: Response): Promise<void
       byQuarter,
     });
   } catch (error) {
-    console.error('getBudgetStats error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('[Budget] Stats calculation failed:', error);
+    res.status(500).json({ message: 'Statistiken konnten nicht berechnet werden' });
   }
 };
 
@@ -60,7 +63,7 @@ export const createBudgetEntry = async (req: Request, res: Response): Promise<vo
     const { purchaseDate, ...rest } = result.data;
     const date = new Date(purchaseDate);
 
-    // Auto-derive quarter and year if not provided
+    // auto-calc quarter and year from date if not provided
     const quarter = rest.quarter ?? `Q${Math.ceil((date.getMonth() + 1) / 3)}-${date.getFullYear()}`;
     const year = rest.year ?? date.getFullYear();
 
@@ -71,8 +74,8 @@ export const createBudgetEntry = async (req: Request, res: Response): Promise<vo
 
     res.status(201).json(entry);
   } catch (error) {
-    console.error('createBudgetEntry error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('[Budget] Create failed:', { body: req.body, error });
+    res.status(500).json({ message: 'Eintrag konnte nicht erstellt werden' });
   }
 };
 

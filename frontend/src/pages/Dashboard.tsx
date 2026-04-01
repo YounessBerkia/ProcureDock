@@ -3,6 +3,7 @@ import { CircleDollarSign, PackageCheck, ShieldCheck, Truck } from 'lucide-react
 import { MetricCard } from '../components/dashboard/MetricCard';
 import { PageIntro, SectionHeading, StatCard, SurfaceCard } from '../components/ui/DashboardPrimitives';
 
+// TODO: replace with real data from api endpoint
 const budgetData = [
   { name: '1', value: 3500 },
   { name: '2', value: 4200 },
@@ -13,6 +14,7 @@ const budgetData = [
   { name: '7', value: 5900 },
 ];
 
+// todo: fetch vendor count from backend
 const vendorData = [
   { name: '1', value: 2 },
   { name: '2', value: 3 },
@@ -23,6 +25,7 @@ const vendorData = [
   { name: '7', value: 8 },
 ];
 
+// FIXME: calculate dynamically from orders endpoint
 const ordersData = [
   { name: '1', value: 8 },
   { name: '2', value: 10 },
@@ -33,6 +36,7 @@ const ordersData = [
   { name: '7', value: 12 },
 ];
 
+// hardcoded for demo - need to fetch from /api/budget endpoint
 const overviewTrend = [
   { month: 'Jan', spend: 8400, savings: 1100 },
   { month: 'Feb', spend: 11600, savings: 1600 },
@@ -43,6 +47,7 @@ const overviewTrend = [
 ];
 
 export const Dashboard = () => {
+  // todo: move this to backend and fetch properly
   const recentOrders = [
     { product: 'Dell Latitude 5540', vendor: 'Alternate', amount: 1299.0, date: '28.03.2026', abteilung: 'IT-Abteilung' },
     { product: 'HP ProDesk 400 G9', vendor: 'Notebooksbilliger', amount: 849.5, date: '25.03.2026', abteilung: 'Buchhaltung' },

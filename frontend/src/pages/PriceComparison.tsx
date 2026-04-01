@@ -12,6 +12,7 @@ export const PriceComparison = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // fetch all prices on mount
   useEffect(() => {
     const fetchPrices = async () => {
       try {
@@ -27,6 +28,7 @@ export const PriceComparison = () => {
     fetchPrices();
   }, []);
 
+  // calculate some stats for the summary cards
   const lowestPrice = prices.length > 0 ? Math.min(...prices.map((price) => price.price)) : 0;
   const averagePrice = prices.length > 0
     ? prices.reduce((sum, price) => sum + price.price, 0) / prices.length
@@ -35,6 +37,7 @@ export const PriceComparison = () => {
   const inStockRate = prices.length > 0
     ? (prices.filter((price) => price.inStock).length / prices.length) * 100
     : 0;
+  // sort by price and take top 4 cheapest
   const cheapestOffers = [...prices]
     .sort((a, b) => a.price - b.price)
     .slice(0, 4);

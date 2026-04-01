@@ -4,6 +4,7 @@ interface LoadingSpinnerProps {
   label?: string;
 }
 
+// size variants for the spinner
 const sizeClasses = {
   sm: 'w-4 h-4 border-2',
   md: 'w-8 h-8 border-2',

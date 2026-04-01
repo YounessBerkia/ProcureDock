@@ -5,6 +5,7 @@ import { PriceComparison } from './pages/PriceComparison';
 import { BudgetTracker } from './pages/BudgetTracker';
 import { VendorManagement } from './pages/VendorManagement';
 
+// main app component with routing
 function App() {
   return (
     <BrowserRouter>

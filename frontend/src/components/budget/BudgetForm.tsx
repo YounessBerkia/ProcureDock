@@ -11,6 +11,7 @@ interface BudgetFormProps {
 const CATEGORIES = ['hardware', 'software', 'services'];
 const STATUSES = ['planned', 'approved', 'ordered', 'delivered'];
 
+// initial form state - reset to this after submit or cancel
 const emptyForm = {
   productId: '',
   vendorId: '',
@@ -22,6 +23,7 @@ const emptyForm = {
   status: 'planned',
 };
 
+// shared input styling
 const inputClass =
   'w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400 transition-all duration-200 text-sm text-gray-800';
 
@@ -34,13 +36,13 @@ export const BudgetForm = ({ editingEntry, onSuccess, onCancelEdit }: BudgetForm
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Load products and vendors for selects
+  // Load products and vendors for dropdowns
   useEffect(() => {
     api.get<Product[]>('/products').then((r) => setProducts(r.data)).catch(() => {});
     api.get<Vendor[]>('/vendors').then((r) => setVendors(r.data)).catch(() => {});
   }, []);
 
-  // Populate form when editing
+  // Populate form when editing an existing entry
   useEffect(() => {
     if (editingEntry) {
       setForm({

@@ -6,6 +6,8 @@ puppeteerExtra.use(StealthPlugin());
 
 const GEIZHALS_BASE_URL = 'https://geizhals.de';
 const SEARCH_PATH = '/?fs=';
+
+// using a custom user agent to identify our bot
 const USER_AGENT =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 ProcureDockBot/1.0';
 
@@ -30,6 +32,7 @@ interface OfferCandidate {
   availabilityText: string;
 }
 
+// normalize text for fuzzy matching - handles umlauts and special chars
 const normalizeText = (value: string): string =>
   value
     .toLowerCase()
@@ -39,6 +42,7 @@ const normalizeText = (value: string): string =>
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
 
+// parse german price format (e.g. "1.234,56 €")
 const parseGermanPrice = (value: string): number => {
   const normalized = value
     .replace(/[^\d,.-]/g, '')
@@ -53,6 +57,7 @@ const parseGermanPrice = (value: string): number => {
   return parsed;
 };
 
+// try to figure out if something is in stock based on availability text
 const isLikelyInStock = (availabilityText: string): boolean => {
   const text = normalizeText(availabilityText);
 
@@ -60,7 +65,9 @@ const isLikelyInStock = (availabilityText: string): boolean => {
     return false;
   }
 
+  // german keywords for out of stock
   const negativeSignals = ['nicht lagernd', 'nicht auf lager', 'ausverkauft', 'nicht verfugbar', 'derzeit nicht'];
+  // german keywords for in stock
   const positiveSignals = ['lagernd', 'sofort', 'lieferbar', 'verfugbar', 'ab lager'];
 
   if (negativeSignals.some((signal) => text.includes(signal))) {
@@ -70,6 +77,7 @@ const isLikelyInStock = (availabilityText: string): boolean => {
   return positiveSignals.some((signal) => text.includes(signal));
 };
 
+// check robots.txt to make sure we're allowed to scrape
 const isAllowedByRobots = async (targetPath: string): Promise<boolean> => {
   const response = await fetch(`${GEIZHALS_BASE_URL}/robots.txt`, {
     headers: { 'User-Agent': USER_AGENT },
@@ -86,6 +94,7 @@ const isAllowedByRobots = async (targetPath: string): Promise<boolean> => {
 
   for (const line of lines) {
     const trimmed = line.trim();
+    // skip comments and empty lines
     if (!trimmed || trimmed.startsWith('#')) {
       continue;
     }
@@ -108,6 +117,7 @@ const isAllowedByRobots = async (targetPath: string): Promise<boolean> => {
     }
   }
 
+  // check if our target path is blocked
   for (const blockedPath of disallowedPaths) {
     if (targetPath.startsWith(blockedPath)) {
       return false;

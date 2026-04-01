@@ -15,6 +15,7 @@ interface SidebarProps {
   onClose: () => void;
 }
 
+// main navigation items for the sidebar
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/preisvergleich', label: 'Preisvergleich', icon: ShoppingCart },
@@ -109,6 +110,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           </ul>
         </nav>
 
+        {/* FIXME: connect this to budget stats api */}
         <div className="border-t border-white/10 p-4 lg:p-5">
           <div className="rounded-[24px] border border-white/10 bg-white/6 p-4 shadow-[0_10px_30px_rgba(15,23,42,0.2)] transition-shadow duration-300 hover:shadow-[0_16px_40px_rgba(15,23,42,0.28)]">
             <div className="mb-3 flex items-center justify-between">
@@ -117,6 +119,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                 Q1 2026
               </span>
             </div>
+            {/* todo: pull from /api/budget/stats */}
             <div className="mb-2 flex items-end justify-between gap-3">
               <span className="text-lg font-semibold text-white">€18.850</span>
               <span className="text-xs text-slate-400">37.7% of €50.000</span>

@@ -13,6 +13,7 @@ export const VendorManagement = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedVendorId, setSelectedVendorId] = useState<string | null>(null);
 
+  // fetch vendors from api
   const fetchVendors = useCallback(async () => {
     try {
       setLoading(true);
@@ -28,6 +29,7 @@ export const VendorManagement = () => {
 
   useEffect(() => { fetchVendors(); }, [fetchVendors]);
 
+  // calculate some stats for the summary cards
   const averageRating = vendors.length > 0
     ? vendors.reduce((sum, vendor) => sum + vendor.rating, 0) / vendors.length
     : 0;
@@ -37,6 +39,7 @@ export const VendorManagement = () => {
   const averageReliability = vendors.length > 0
     ? vendors.reduce((sum, vendor) => sum + vendor.reliability, 0) / vendors.length
     : 0;
+  // find the highest rated vendor for the featured section
   const featuredVendor = [...vendors].sort((a, b) => b.rating - a.rating)[0];
 
   return (

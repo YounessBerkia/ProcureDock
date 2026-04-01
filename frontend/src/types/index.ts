@@ -1,3 +1,5 @@
+// core data types for the procurement system
+
 export interface Product {
   id: string;
   name: string;
@@ -33,6 +35,7 @@ export interface Price {
   vendor: Vendor;
 }
 
+// vendor with additional details for the modal view
 export interface VendorWithDetails extends Vendor {
   budgetEntries: (BudgetEntry & { product: Product | null })[];
   _count: { prices: number };

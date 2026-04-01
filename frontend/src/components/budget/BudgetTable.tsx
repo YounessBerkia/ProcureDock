@@ -16,6 +16,7 @@ const STATUS_STYLES: Record<string, string> = {
   delivered: 'bg-green-100 text-green-700',
 };
 
+// german labels for status values
 const STATUS_LABELS: Record<string, string> = {
   planned:   'Geplant',
   approved:  'Genehmigt',
@@ -24,6 +25,7 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 export const BudgetTable = ({ entries, onEdit, onDelete }: BudgetTableProps) => {
+  // confirm before deleting
   const handleDelete = (id: string, description: string) => {
     if (window.confirm(`"${description}" wirklich löschen?`)) {
       onDelete(id);
