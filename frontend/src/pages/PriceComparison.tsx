@@ -118,7 +118,7 @@ export const PriceComparison = () => {
               />
               <div className="space-y-3">
                 {cheapestOffers.map((price) => (
-                  <div key={price.id} className="rounded-[22px] border border-white/75 bg-white/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
+                  <div key={price.id} className="rounded-[22px] border border-white/75 bg-white/72 px-4 py-3 shadow-[0_8px_18px_rgba(15,23,42,0.045),inset_0_1px_0_rgba(255,255,255,0.55)]">
                     <div className="flex items-center justify-between gap-4">
                       <div className="min-w-0">
                         <p className="truncate text-sm font-medium text-gray-800">{price.product.name}</p>
