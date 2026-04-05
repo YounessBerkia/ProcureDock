@@ -10,7 +10,9 @@ Webbasiertes IT-Beschaffungs-Dashboard, entwickelt als Portfolioprojekt für die
 
 ## Demo
 
-![ProcureDock Demo](assets/demo.gif)
+<p align="center">
+  <img src="assets/demo.gif" alt="ProcureDock Demo" />
+</p>
 
 ---
 
