@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
+import { SearchProvider } from './components/search/SearchProvider';
 import { Dashboard } from './pages/Dashboard';
 import { PriceComparison } from './pages/PriceComparison';
 import { BudgetTracker } from './pages/BudgetTracker';
@@ -9,14 +10,16 @@ import { VendorManagement } from './pages/VendorManagement';
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/preisvergleich" element={<PriceComparison />} />
-          <Route path="/budget" element={<BudgetTracker />} />
-          <Route path="/vendors" element={<VendorManagement />} />
-        </Routes>
-      </Layout>
+      <SearchProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/preisvergleich" element={<PriceComparison />} />
+            <Route path="/budget" element={<BudgetTracker />} />
+            <Route path="/vendors" element={<VendorManagement />} />
+          </Routes>
+        </Layout>
+      </SearchProvider>
     </BrowserRouter>
   );
 }

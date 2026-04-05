@@ -54,17 +54,19 @@ export const BudgetPieChart = ({ stats }: BudgetPieChartProps) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-semibold text-gray-800">Ausgaben nach Kategorie</h2>
-        <span className="text-sm text-blue-500 font-medium">
-          €{total.toLocaleString('de-DE', { minimumFractionDigits: 2 })}
-        </span>
-      </div>
+    <div className="animate-in-soft animate-in-soft-delay-2 relative overflow-hidden rounded-[30px] border border-white/80 bg-white/88 p-8 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_18px_42px_rgba(15,23,42,0.1)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.14),transparent_26%)]" />
+      <div className="relative">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-gray-800">Ausgaben nach Kategorie</h2>
+          <span className="text-sm font-medium text-blue-500">
+            €{total.toLocaleString('de-DE', { minimumFractionDigits: 2 })}
+          </span>
+        </div>
 
-      <div className="flex items-center gap-8">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
         {/* Chart */}
-        <div className="relative" style={{ width: 160, height: 160, flexShrink: 0 }}>
+        <div className="relative mx-auto w-full max-w-[184px] rounded-[24px] border border-white/80 bg-gradient-to-b from-slate-50/95 to-white p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:mx-0" style={{ height: 184, flexShrink: 0 }}>
           <Doughnut data={data} options={chartOptions} />
           {/* Center label */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
@@ -76,9 +78,9 @@ export const BudgetPieChart = ({ stats }: BudgetPieChartProps) => {
         </div>
 
         {/* Legend */}
-        <ul className="flex flex-col gap-2 flex-1">
+        <ul className="flex min-w-0 flex-1 flex-col gap-2">
           {categories.map((cat, i) => (
-            <li key={cat} className="flex items-center justify-between rounded-lg px-2 py-1.5 transition-colors duration-200 hover:bg-gray-50">
+            <li key={cat} className="flex items-center justify-between rounded-2xl border border-white/70 bg-white/68 px-3 py-2 transition-colors duration-200 hover:bg-white/80">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: colors[i] }} />
                 <span className="text-sm text-gray-600 capitalize">{cat}</span>
@@ -89,6 +91,7 @@ export const BudgetPieChart = ({ stats }: BudgetPieChartProps) => {
             </li>
           ))}
         </ul>
+      </div>
       </div>
     </div>
   );

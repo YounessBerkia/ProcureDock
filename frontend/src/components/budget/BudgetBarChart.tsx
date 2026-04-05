@@ -76,13 +76,16 @@ export const BudgetBarChart = ({ stats }: BudgetBarChartProps) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-semibold text-gray-800">Ausgaben pro Quartal</h2>
-        <span className="text-sm text-blue-500 font-medium">{quarters.length} Quartale</span>
-      </div>
-      <div className="h-64">
-        <Bar data={data} options={chartOptions} />
+    <div className="animate-in-soft animate-in-soft-delay-3 relative overflow-hidden rounded-[30px] border border-white/80 bg-white/88 p-8 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_18px_42px_rgba(15,23,42,0.1)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(96,165,250,0.14),transparent_28%)]" />
+      <div className="relative">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-gray-800">Ausgaben pro Quartal</h2>
+          <span className="text-sm text-blue-500 font-medium">{quarters.length} Quartale</span>
+        </div>
+        <div className="h-64 rounded-[24px] border border-white/80 bg-gradient-to-b from-slate-50/95 to-white p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">
+          <Bar data={data} options={chartOptions} />
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ export const Layout = ({ children }: LayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="relative flex min-h-screen">
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -18,18 +18,18 @@ export const Layout = ({ children }: LayoutProps) => {
       />
 
       {/* Main content - centered with max-width */}
-      <div className="relative z-10 flex-1 ml-0 lg:ml-72">
-        <div className="mx-auto flex min-h-screen w-full max-w-[1200px] flex-col px-4 py-6 md:px-8 md:py-8 lg:px-12">
+      <div className="relative z-10 ml-0 min-w-0 flex-1">
+        <div className="flex min-h-screen w-full min-w-0 flex-col px-4 py-6 md:px-6 md:py-8 lg:pl-4 lg:pr-8 xl:pl-5 xl:pr-10 2xl:pl-6 2xl:pr-12">
           {/* Header */}
           <Header onMenuClick={() => setSidebarOpen(true)} />
 
           {/* Page content */}
-          <main className="mt-6 flex flex-col gap-8 pb-8">
+          <main className="mt-7 flex min-w-0 flex-col gap-8 pb-10">
             {children}
           </main>
 
           {/* Footer */}
-          <footer className="mt-auto border-t border-gray-100 py-4 text-center text-xs text-gray-400">
+          <footer className="mt-auto border-t border-white/70 py-5 text-center text-xs text-gray-400">
             IHK Wiesbaden · IT-Beschaffungsmanagement · Entwickelt von Youness Berkia · 2026
           </footer>
         </div>

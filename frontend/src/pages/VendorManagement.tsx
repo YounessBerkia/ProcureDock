@@ -1,10 +1,11 @@
 import { Gauge, PackageSearch, Star, Truck } from 'lucide-react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
 import { VendorCard } from '../components/vendors/VendorCard';
 import { VendorDetailModal } from '../components/vendors/VendorDetailModal';
 import { LoadingStateCard } from '../components/ui/LoadingSpinner';
-import { PageIntro, SectionHeading, StatCard, SurfaceCard } from '../components/ui/DashboardPrimitives';
+import { BloomCard, Chip, PageIntro, SectionHeading, StatCard } from '../components/ui/DashboardPrimitives';
 import type { VendorWithCount } from '../types';
 
 export const VendorManagement = () => {
@@ -12,6 +13,7 @@ export const VendorManagement = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedVendorId, setSelectedVendorId] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
 
   // fetch vendors from api
   const fetchVendors = useCallback(async () => {
@@ -29,18 +31,26 @@ export const VendorManagement = () => {
 
   useEffect(() => { fetchVendors(); }, [fetchVendors]);
 
+  const query = (searchParams.get('q') ?? '').toLowerCase().trim();
+  const filteredVendors = useMemo(() => {
+    if (!query) return vendors;
+    return vendors.filter((vendor) =>
+      `${vendor.name} ${vendor.website} ${vendor.rating} ${vendor.reliability}`.toLowerCase().includes(query)
+    );
+  }, [query, vendors]);
+
   // calculate some stats for the summary cards
-  const averageRating = vendors.length > 0
-    ? vendors.reduce((sum, vendor) => sum + vendor.rating, 0) / vendors.length
+  const averageRating = filteredVendors.length > 0
+    ? filteredVendors.reduce((sum, vendor) => sum + vendor.rating, 0) / filteredVendors.length
     : 0;
-  const averageDelivery = vendors.length > 0
-    ? vendors.reduce((sum, vendor) => sum + (vendor.avgDeliveryDays ?? 0), 0) / vendors.length
+  const averageDelivery = filteredVendors.length > 0
+    ? filteredVendors.reduce((sum, vendor) => sum + (vendor.avgDeliveryDays ?? 0), 0) / filteredVendors.length
     : 0;
-  const averageReliability = vendors.length > 0
-    ? vendors.reduce((sum, vendor) => sum + vendor.reliability, 0) / vendors.length
+  const averageReliability = filteredVendors.length > 0
+    ? filteredVendors.reduce((sum, vendor) => sum + vendor.reliability, 0) / filteredVendors.length
     : 0;
   // find the highest rated vendor for the featured section
-  const featuredVendor = [...vendors].sort((a, b) => b.rating - a.rating)[0];
+  const featuredVendor = [...filteredVendors].sort((a, b) => b.rating - a.rating)[0];
 
   return (
     <div className="flex flex-col gap-8">
@@ -70,7 +80,7 @@ export const VendorManagement = () => {
             <StatCard
               icon={PackageSearch}
               label="Erfasste Lieferanten"
-              value={String(vendors.length)}
+              value={String(filteredVendors.length)}
               hint="Lieferanten, die aktuell im Beschaffungssystem geführt werden."
               accent="blue"
             />
@@ -98,10 +108,11 @@ export const VendorManagement = () => {
           </div>
 
           {featuredVendor && (
-            <SurfaceCard>
+            <BloomCard>
               <SectionHeading
                 title="Toplieferant"
                 description="Bestbewerteter Lieferant im aktuellen Lieferantenportfolio."
+                action={<Chip>featured partner</Chip>}
               />
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
@@ -110,16 +121,16 @@ export const VendorManagement = () => {
                     {featuredVendor.reliability}% Zuverlässigkeit · Ø {featuredVendor.avgDeliveryDays ?? '—'} Tage Lieferzeit · {featuredVendor._count.budgetEntries} erfasste Bestellungen
                   </p>
                 </div>
-                <div className="rounded-2xl bg-blue-50 px-4 py-3 text-right">
+                <div className="rounded-[22px] border border-white/75 bg-white/72 px-4 py-3 text-right shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
                   <p className="text-xs font-medium uppercase tracking-wide text-blue-500">Beste Bewertung</p>
                   <p className="mt-1 text-2xl font-semibold text-blue-700">{featuredVendor.rating.toFixed(1)} / 5</p>
                 </div>
               </div>
-            </SurfaceCard>
+            </BloomCard>
           )}
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {vendors.map((vendor) => (
+            {filteredVendors.map((vendor) => (
               <VendorCard
                 key={vendor.id}
                 vendor={vendor}
@@ -128,7 +139,7 @@ export const VendorManagement = () => {
             ))}
           </div>
 
-          {vendors.length === 0 && (
+          {filteredVendors.length === 0 && (
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
               <p className="text-gray-400 text-sm">Keine Lieferanten gefunden</p>
             </div>

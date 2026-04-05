@@ -39,8 +39,10 @@ export const VendorCard = ({ vendor, onClick }: VendorCardProps) => {
     <button
       type="button"
       onClick={onClick}
-      className="group w-full rounded-2xl border border-gray-100 bg-white p-6 text-left shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      className="animate-in-soft animate-in-soft-delay-2 group relative w-full overflow-hidden rounded-[28px] border border-white/80 bg-white/88 p-6 text-left shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.14),transparent_24%),radial-gradient(circle_at_bottom_left,rgba(191,219,254,0.12),transparent_24%)]" />
+      <div className="relative">
       <div className="mb-5 flex items-start gap-4">
         <div className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl ${colorClass} shadow-sm`}>
           <span className="text-white text-lg font-bold">{vendor.name.charAt(0)}</span>
@@ -48,7 +50,7 @@ export const VendorCard = ({ vendor, onClick }: VendorCardProps) => {
         <div className="min-w-0">
           <div className="mb-2 flex items-center gap-2">
             <h3 className="truncate text-base font-semibold text-gray-800">{vendor.name}</h3>
-            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-600">
+            <span className="rounded-full border border-white/80 bg-white/74 px-2 py-0.5 text-[11px] font-medium text-blue-600 shadow-[0_6px_18px_rgba(15,23,42,0.05)]">
               {vendor._count.prices} Preise
             </span>
           </div>
@@ -63,22 +65,23 @@ export const VendorCard = ({ vendor, onClick }: VendorCardProps) => {
         </span>
       </div>
 
-      <div className="grid grid-cols-3 gap-3 border-t border-gray-100 pt-4">
-        <div className="rounded-xl bg-gray-50 px-3 py-3 text-center">
+      <div className="grid grid-cols-1 gap-3 border-t border-slate-200/70 pt-4 sm:grid-cols-3">
+        <div className="rounded-[20px] border border-white/75 bg-white/72 px-3 py-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
           <ShieldCheck className="w-4 h-4 text-green-500" />
           <p className="mt-2 text-sm font-semibold text-gray-800">{vendor.reliability}%</p>
           <p className="text-xs text-gray-400">Zuverl.</p>
         </div>
-        <div className="rounded-xl bg-gray-50 px-3 py-3 text-center">
+        <div className="rounded-[20px] border border-white/75 bg-white/72 px-3 py-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
           <Truck className="w-4 h-4 text-blue-500" />
           <p className="mt-2 text-sm font-semibold text-gray-800">{vendor.avgDeliveryDays ?? '—'}d</p>
           <p className="text-xs text-gray-400">Lieferzeit</p>
         </div>
-        <div className="rounded-xl bg-gray-50 px-3 py-3 text-center">
+        <div className="rounded-[20px] border border-white/75 bg-white/72 px-3 py-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
           <Package className="w-4 h-4 text-sky-500" />
           <p className="mt-2 text-sm font-semibold text-gray-800">{vendor._count.budgetEntries}</p>
           <p className="text-xs text-gray-400">Bestellungen</p>
         </div>
+      </div>
       </div>
     </button>
   );
