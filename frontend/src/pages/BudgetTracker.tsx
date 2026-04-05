@@ -1,12 +1,13 @@
 import { CircleDollarSign, LayoutGrid, ReceiptText, WalletCards } from 'lucide-react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
 import { BudgetForm } from '../components/budget/BudgetForm';
 import { BudgetPieChart } from '../components/budget/BudgetPieChart';
 import { BudgetBarChart } from '../components/budget/BudgetBarChart';
 import { BudgetTable } from '../components/budget/BudgetTable';
 import { LoadingStateCard } from '../components/ui/LoadingSpinner';
-import { PageIntro, StatCard, SurfaceCard } from '../components/ui/DashboardPrimitives';
+import { BloomCard, Chip, PageIntro, StatCard } from '../components/ui/DashboardPrimitives';
 import type { BudgetEntry, BudgetStats } from '../types';
 
 export const BudgetTracker = () => {
@@ -15,6 +16,7 @@ export const BudgetTracker = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingEntry, setEditingEntry] = useState<BudgetEntry | null>(null);
+  const [searchParams] = useSearchParams();
 
   // fetch budget entries and stats together
   const fetchData = useCallback(async () => {
@@ -46,9 +48,17 @@ export const BudgetTracker = () => {
     }
   };
 
+  const query = (searchParams.get('q') ?? '').toLowerCase().trim();
+  const filteredEntries = useMemo(() => {
+    if (!query) return entries;
+    return entries.filter((entry) =>
+      `${entry.description} ${entry.category} ${entry.product?.name ?? ''} ${entry.vendor?.name ?? ''}`.toLowerCase().includes(query)
+    );
+  }, [entries, query]);
+
   const spentPct = stats ? Math.min((stats.totalSpent / stats.totalBudget) * 100, 100) : 0;
-  const approvedEntries = entries.filter((entry) => ['approved', 'ordered', 'delivered'].includes(entry.status)).length;
-  const categoriesTracked = new Set(entries.map((entry) => entry.category)).size;
+  const approvedEntries = filteredEntries.filter((entry) => ['approved', 'ordered', 'delivered'].includes(entry.status)).length;
+  const categoriesTracked = new Set(filteredEntries.map((entry) => entry.category)).size;
 
   return (
     <div className="flex flex-col gap-8">
@@ -105,8 +115,8 @@ export const BudgetTracker = () => {
             />
           </div>
 
-          <SurfaceCard className="overflow-hidden">
-            <div className="flex items-center justify-between mb-3">
+          <BloomCard className="overflow-hidden">
+            <div className="mb-3 flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm text-gray-500">Gesamtbudget Q1 2026</p>
                 <p className="text-2xl font-semibold text-gray-800">
@@ -117,20 +127,21 @@ export const BudgetTracker = () => {
                 </p>
               </div>
               <div className="text-right">
+                <Chip>Budget health stable</Chip>
                 <p className="text-sm text-gray-500">Verbleibend</p>
                 <p className="text-xl font-semibold text-green-600">
                   €{stats.remaining.toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                 </p>
               </div>
             </div>
-            <div className="w-full bg-gray-100 rounded-full h-2.5">
+            <div className="h-2.5 w-full rounded-full bg-slate-100">
               <div
-                className="bg-blue-500 h-2.5 rounded-full transition-all duration-500"
+                className="h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500"
                 style={{ width: `${spentPct}%` }}
               />
             </div>
             <p className="text-xs text-gray-400 mt-1.5">{spentPct.toFixed(1)}% verbraucht</p>
-          </SurfaceCard>
+          </BloomCard>
 
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
             <BudgetForm
@@ -138,14 +149,14 @@ export const BudgetTracker = () => {
               onSuccess={() => { setEditingEntry(null); fetchData(); }}
               onCancelEdit={() => setEditingEntry(null)}
             />
-            <div className="grid grid-cols-1 gap-6">
+            <div className="min-w-0 grid grid-cols-1 gap-6">
               <BudgetPieChart stats={stats} />
               <BudgetBarChart stats={stats} />
             </div>
           </div>
 
           <BudgetTable
-            entries={entries}
+            entries={filteredEntries}
             onEdit={(entry) => setEditingEntry(entry)}
             onDelete={handleDelete}
           />

@@ -25,7 +25,7 @@ const emptyForm = {
 
 // shared input styling
 const inputClass =
-  'w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400 transition-all duration-200 text-sm text-gray-800';
+  'w-full rounded-2xl border border-white/85 bg-white/84 px-4 py-2.5 text-sm text-gray-800 shadow-[0_8px_20px_rgba(15,23,42,0.05)] transition-all duration-200 placeholder-gray-400 hover:border-slate-300 focus:border-transparent focus:ring-2 focus:ring-blue-500';
 
 const labelClass = 'block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5';
 
@@ -91,10 +91,12 @@ export const BudgetForm = ({ editingEntry, onSuccess, onCancelEdit }: BudgetForm
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
-      <h2 className="text-lg font-semibold text-gray-800 mb-6">
-        {editingEntry ? 'Eintrag bearbeiten' : 'Neue Ausgabe'}
-      </h2>
+    <div className="animate-in-soft animate-in-soft-delay-1 relative overflow-hidden rounded-[30px] border border-white/80 bg-white/88 p-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_18px_42px_rgba(15,23,42,0.1)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.14),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(191,219,254,0.1),transparent_24%)]" />
+      <div className="relative">
+        <h2 className="mb-6 text-lg font-semibold text-gray-800">
+          {editingEntry ? 'Eintrag bearbeiten' : 'Neue Ausgabe'}
+        </h2>
 
       {error && (
         <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
@@ -115,7 +117,7 @@ export const BudgetForm = ({ editingEntry, onSuccess, onCancelEdit }: BudgetForm
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <label className={labelClass}>Kategorie *</label>
             <select
@@ -142,7 +144,7 @@ export const BudgetForm = ({ editingEntry, onSuccess, onCancelEdit }: BudgetForm
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <label className={labelClass}>Betrag (€) *</label>
             <input
@@ -209,12 +211,12 @@ export const BudgetForm = ({ editingEntry, onSuccess, onCancelEdit }: BudgetForm
           </select>
         </div>
 
-        {/* Buttons — exact from Design.md */}
+        {/* buttons are a lil louder here because this is the action area */}
         <div className="flex gap-3 pt-2">
           <button
             type="submit"
             disabled={submitting}
-            className="flex-1 px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="flex-1 rounded-2xl bg-blue-500 px-6 py-2.5 font-medium text-white shadow-[0_12px_24px_rgba(59,130,246,0.24)] transition-all duration-200 hover:bg-blue-600 hover:shadow-[0_16px_30px_rgba(59,130,246,0.3)] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? 'Speichert…' : editingEntry ? 'Aktualisieren' : 'Speichern'}
           </button>
@@ -222,13 +224,14 @@ export const BudgetForm = ({ editingEntry, onSuccess, onCancelEdit }: BudgetForm
             <button
               type="button"
               onClick={() => { setForm(emptyForm); onCancelEdit(); }}
-              className="px-6 py-2.5 bg-white hover:bg-gray-50 text-gray-700 font-medium border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="rounded-2xl border border-white/85 bg-white/78 px-6 py-2.5 font-medium text-gray-700 shadow-[0_8px_20px_rgba(15,23,42,0.05)] transition-all duration-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Abbrechen
             </button>
           )}
         </div>
       </form>
+      </div>
     </div>
   );
 };

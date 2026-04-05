@@ -39,16 +39,15 @@ export const PriceComparisonTable = ({ prices }: PriceComparisonTableProps) => {
   };
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
-      {/* Table Header Bar */}
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+    <div className="animate-in-soft animate-in-soft-delay-3 overflow-hidden rounded-[30px] border border-white/80 bg-white/88 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_18px_42px_rgba(15,23,42,0.1)]">
+      <div className="flex items-center justify-between border-b border-slate-200/70 bg-white/68 px-6 py-4 backdrop-blur-md">
         <h2 className="text-lg font-semibold text-gray-800">Preisvergleich</h2>
         <span className="text-sm text-blue-500 font-medium">{prices.length} Einträge</span>
       </div>
 
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-200">
+          <thead className="border-b border-slate-200/70 bg-slate-50/70">
             <tr>
               <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Produkt
@@ -76,9 +75,9 @@ export const PriceComparisonTable = ({ prices }: PriceComparisonTableProps) => {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-slate-100/90">
             {sorted.map((price) => (
-              <tr key={price.id} className="transition-colors duration-200 hover:bg-gray-50">
+              <tr key={price.id} className="transition-colors duration-200 hover:bg-white/75">
                 <td className="px-6 py-4 text-sm text-gray-800 font-medium whitespace-nowrap">
                   {price.product.name}
                 </td>

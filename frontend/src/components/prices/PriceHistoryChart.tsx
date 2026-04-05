@@ -127,57 +127,60 @@ export const PriceHistoryChart = ({ prices }: PriceHistoryChartProps) => {
   const lowestPrice = filtered.length > 0 ? Math.min(...filtered.map((p) => p.price)) : null;
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-lg font-semibold text-gray-800">Preisverlauf</h2>
-          {lowestPrice !== null && (
-            <p className="text-sm text-gray-500 mt-0.5">
-              Bestes Angebot: <span className="text-green-600 font-medium">€{lowestPrice.toLocaleString('de-DE', { minimumFractionDigits: 2 })}</span>
-            </p>
+    <div className="animate-in-soft animate-in-soft-delay-2 relative overflow-hidden rounded-[30px] border border-white/80 bg-white/88 p-8 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_18px_42px_rgba(15,23,42,0.1)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.16),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(191,219,254,0.12),transparent_24%)]" />
+      <div className="relative">
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800">Preisverlauf</h2>
+            {lowestPrice !== null && (
+              <p className="mt-0.5 text-sm text-gray-500">
+                Bestes Angebot: <span className="font-medium text-green-600">€{lowestPrice.toLocaleString('de-DE', { minimumFractionDigits: 2 })}</span>
+              </p>
+            )}
+          </div>
+          <select
+            value={selectedProductId}
+            onChange={(e) => setSelectedProductId(e.target.value)}
+            className="rounded-2xl border border-white/80 bg-white/82 px-4 py-2 text-sm text-gray-700 shadow-[0_8px_22px_rgba(15,23,42,0.06)] transition-all duration-200 hover:border-slate-300 focus:border-transparent focus:ring-2 focus:ring-blue-500"
+          >
+            {products.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* chart area a bit more alive, but dont overdo it */}
+        <div className="rounded-[24px] border border-white/80 bg-gradient-to-b from-slate-50/95 via-white to-white p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.68)]">
+          {filtered.length === 0 ? (
+            <div className="flex h-80 items-center justify-center text-sm text-gray-400">
+              Keine Preisdaten für dieses Produkt
+            </div>
+          ) : (
+            <div className="h-80">
+              <Line
+                ref={chartRef}
+                data={chartData}
+                options={chartOptions}
+                plugins={[gradientPlugin]}
+              />
+            </div>
           )}
         </div>
-        <select
-          value={selectedProductId}
-          onChange={(e) => setSelectedProductId(e.target.value)}
-          className="bg-white px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-400"
-        >
-          {products.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.name}
-            </option>
-          ))}
-        </select>
+
+        {filtered.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-3">
+            {[...new Set(filtered.map((p) => p.vendor.name))].map((name) => (
+              <span key={name} className="flex items-center gap-1.5 rounded-full border border-white/80 bg-white/72 px-3 py-1 text-xs text-gray-500 shadow-[0_6px_18px_rgba(15,23,42,0.05)]">
+                <span className="inline-block h-0.5 w-3 rounded bg-blue-500" />
+                {name}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
-
-      {/* Chart */}
-      {filtered.length === 0 ? (
-        <div className="h-80 flex items-center justify-center text-gray-400 text-sm">
-          Keine Preisdaten für dieses Produkt
-        </div>
-      ) : (
-        <div className="h-80">
-          <Line
-            ref={chartRef}
-            data={chartData}
-            options={chartOptions}
-            plugins={[gradientPlugin]}
-          />
-        </div>
-      )}
-
-      {/* Legend — vendors */}
-      {filtered.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-3">
-          {[...new Set(filtered.map((p) => p.vendor.name))].map((name) => (
-            <span key={name} className="text-xs text-gray-500 flex items-center gap-1.5">
-              <span className="w-3 h-0.5 bg-blue-500 inline-block rounded" />
-              {name}
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 };

@@ -1,16 +1,18 @@
 import { Activity, BadgePercent, Boxes, Store } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
 import { PriceComparisonTable } from '../components/prices/PriceComparisonTable';
 import { PriceHistoryChart } from '../components/prices/PriceHistoryChart';
 import { LoadingStateCard } from '../components/ui/LoadingSpinner';
-import { PageIntro, SectionHeading, StatCard, SurfaceCard } from '../components/ui/DashboardPrimitives';
+import { BloomCard, Chip, PageIntro, SectionHeading, StatCard } from '../components/ui/DashboardPrimitives';
 import type { Price } from '../types';
 
 export const PriceComparison = () => {
   const [prices, setPrices] = useState<Price[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
 
   // fetch all prices on mount
   useEffect(() => {
@@ -28,17 +30,25 @@ export const PriceComparison = () => {
     fetchPrices();
   }, []);
 
+  const query = (searchParams.get('q') ?? '').toLowerCase().trim();
+  const filteredPrices = useMemo(() => {
+    if (!query) return prices;
+    return prices.filter((price) =>
+      `${price.product.name} ${price.vendor.name}`.toLowerCase().includes(query)
+    );
+  }, [prices, query]);
+
   // calculate some stats for the summary cards
-  const lowestPrice = prices.length > 0 ? Math.min(...prices.map((price) => price.price)) : 0;
-  const averagePrice = prices.length > 0
-    ? prices.reduce((sum, price) => sum + price.price, 0) / prices.length
+  const lowestPrice = filteredPrices.length > 0 ? Math.min(...filteredPrices.map((price) => price.price)) : 0;
+  const averagePrice = filteredPrices.length > 0
+    ? filteredPrices.reduce((sum, price) => sum + price.price, 0) / filteredPrices.length
     : 0;
-  const uniqueVendors = new Set(prices.map((price) => price.vendor.id)).size;
-  const inStockRate = prices.length > 0
-    ? (prices.filter((price) => price.inStock).length / prices.length) * 100
+  const uniqueVendors = new Set(filteredPrices.map((price) => price.vendor.id)).size;
+  const inStockRate = filteredPrices.length > 0
+    ? (filteredPrices.filter((price) => price.inStock).length / filteredPrices.length) * 100
     : 0;
   // sort by price and take top 4 cheapest
-  const cheapestOffers = [...prices]
+  const cheapestOffers = [...filteredPrices]
     .sort((a, b) => a.price - b.price)
     .slice(0, 4);
 
@@ -98,16 +108,17 @@ export const PriceComparison = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(300px,1fr)]">
-            {prices.length > 0 && <PriceHistoryChart prices={prices} />}
+            {filteredPrices.length > 0 && <PriceHistoryChart prices={filteredPrices} />}
 
-            <SurfaceCard>
+            <BloomCard className="min-w-0">
               <SectionHeading
                 title="Günstigste Angebote"
                 description="Aktuell preisgünstigste Artikel im erfassten Sortiment."
+                action={<Chip>{cheapestOffers.length} tracked</Chip>}
               />
               <div className="space-y-3">
                 {cheapestOffers.map((price) => (
-                  <div key={price.id} className="rounded-xl bg-gray-50 px-4 py-3">
+                  <div key={price.id} className="rounded-[22px] border border-white/75 bg-white/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
                     <div className="flex items-center justify-between gap-4">
                       <div className="min-w-0">
                         <p className="truncate text-sm font-medium text-gray-800">{price.product.name}</p>
@@ -125,10 +136,10 @@ export const PriceComparison = () => {
                   </div>
                 ))}
               </div>
-            </SurfaceCard>
+            </BloomCard>
           </div>
 
-          <PriceComparisonTable prices={prices} />
+          <PriceComparisonTable prices={filteredPrices} />
         </div>
       )}
     </div>

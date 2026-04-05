@@ -1,7 +1,7 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { CircleDollarSign, PackageCheck, ShieldCheck, Truck } from 'lucide-react';
 import { MetricCard } from '../components/dashboard/MetricCard';
-import { PageIntro, SectionHeading, StatCard, SurfaceCard } from '../components/ui/DashboardPrimitives';
+import { BloomCard, Chip, PageIntro, SectionHeading, StatCard, SurfaceCard } from '../components/ui/DashboardPrimitives';
 
 // TODO: replace with real data from api endpoint
 const budgetData = [
@@ -119,14 +119,14 @@ export const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(320px,1fr)]">
-        <SurfaceCard padding="lg">
+        <BloomCard className="min-w-0 p-8">
           <SectionHeading
             title="Ausgabenentwicklung 2026"
             description="Monatliche Ausgaben und erzielte Einsparungen im laufenden Planungszeitraum."
-            action={<span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">6 Monate erfasst</span>}
+            action={<Chip>6 Monate erfasst</Chip>}
           />
 
-          <div className="h-80 rounded-[24px] bg-gradient-to-b from-slate-50 to-white p-4">
+          <div className="h-80 rounded-[26px] border border-white/70 bg-gradient-to-b from-slate-50/95 via-white to-white p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={overviewTrend} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
                 <defs>
@@ -147,17 +147,18 @@ export const Dashboard = () => {
                   formatter={(value) => [`€${Number(value ?? 0).toLocaleString('de-DE')}`, 'Spend']}
                   contentStyle={{
                     borderRadius: 16,
-                    border: '1px solid #E5E7EB',
-                    boxShadow: '0 12px 30px rgba(15, 23, 42, 0.08)',
+                    border: '1px solid rgba(255,255,255,0.9)',
+                    backgroundColor: 'rgba(255,255,255,0.95)',
+                    boxShadow: '0 18px 40px rgba(15, 23, 42, 0.08)',
                   }}
                 />
                 <Area type="monotone" dataKey="spend" stroke="#3B82F6" strokeWidth={2.5} fill="url(#spendGradient)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
-        </SurfaceCard>
+        </BloomCard>
 
-        <div className="flex flex-col gap-6">
+        <div className="min-w-0 flex flex-col gap-6">
           <SurfaceCard>
             <SectionHeading
               title="Beschaffungsstatus"
@@ -169,13 +170,13 @@ export const Dashboard = () => {
                 { label: 'Bestellungen genehmigt', value: '86%', width: '86%' },
                 { label: 'Lieferanten über SLA', value: '91%', width: '91%' },
               ].map((item) => (
-                <div key={item.label} className="rounded-2xl bg-gray-50 px-4 py-4">
+                <div key={item.label} className="rounded-[22px] border border-white/75 bg-white/70 px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
                   <div className="mb-2 flex items-center justify-between text-sm">
                     <span className="text-gray-500">{item.label}</span>
                     <span className="font-medium text-gray-800">{item.value}</span>
                   </div>
-                  <div className="h-2 rounded-full bg-gray-100">
-                    <div className="h-2 rounded-full bg-blue-500" style={{ width: item.width }} />
+                  <div className="h-2 rounded-full bg-slate-100">
+                    <div className="h-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" style={{ width: item.width }} />
                   </div>
                 </div>
               ))}
@@ -193,7 +194,7 @@ export const Dashboard = () => {
                 'Budgetfreigabe für Q2-Monitorerneuerung beantragen.',
                 'Cyberport nach verbesserter Lieferleistung neu bewerten.',
               ].map((item) => (
-                <div key={item} className="rounded-xl bg-gray-50 px-4 py-3 text-sm text-gray-600">
+                <div key={item} className="rounded-[20px] border border-white/75 bg-white/72 px-4 py-3 text-sm text-gray-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
                   {item}
                 </div>
               ))}
@@ -202,8 +203,8 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
-        <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+      <div className="overflow-hidden rounded-[30px] border border-white/80 bg-white/88 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_18px_42px_rgba(15,23,42,0.1)]">
+        <div className="flex items-center justify-between border-b border-slate-200/70 bg-white/65 px-6 py-4 backdrop-blur-md">
           <div>
             <h2 className="text-lg font-semibold text-gray-800">Letzte Beschaffungsvorgänge</h2>
             <p className="mt-1 text-sm text-gray-500">Aktuelle Bestellaktivitäten über Hardware und Peripheriegeräte.</p>
@@ -212,7 +213,7 @@ export const Dashboard = () => {
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="border-b border-slate-200/70 bg-slate-50/70">
               <tr>
                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Produkt

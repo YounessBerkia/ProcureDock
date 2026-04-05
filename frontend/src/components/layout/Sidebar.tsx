@@ -6,9 +6,11 @@ import {
   Building2,
   X,
   ChevronRight,
+  Search,
   Sparkles,
 } from 'lucide-react';
 import icon from '../../assets/icon.png';
+import { useGlobalSearch } from '../search/SearchProvider';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -24,6 +26,9 @@ const navItems = [
 ];
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+  const { query, setQuery, results, openResults, closeResults, submitQuery, goToResult } = useGlobalSearch();
+  const quickResults = results.slice(0, 4);
+
   return (
     <>
       {/* Mobile Overlay */}
@@ -76,6 +81,53 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         </div>
 
         <nav className="flex-1 px-4 py-5 lg:px-5">
+          <div className="mb-5">
+            <label className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/7 px-3 py-2.5 text-sm text-slate-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-200 focus-within:border-blue-300/40 focus-within:bg-white/10">
+              <Search className="h-4 w-4 text-slate-400" />
+              <input
+                type="text"
+                value={query}
+                onFocus={openResults}
+                onBlur={() => window.setTimeout(closeResults, 120)}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  openResults();
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    submitQuery();
+                    if (window.innerWidth < 1024) onClose();
+                  }
+                }}
+                placeholder="Quick jump ..."
+                className="w-full border-0 bg-transparent p-0 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+              />
+            </label>
+
+            {query.trim() && quickResults.length > 0 && (
+              <div className="mt-3 space-y-1.5">
+                {quickResults.map((result) => (
+                  <button
+                    key={result.id}
+                    type="button"
+                    onClick={() => {
+                      goToResult(result);
+                      if (window.innerWidth < 1024) onClose();
+                    }}
+                    className="flex w-full items-center justify-between gap-3 rounded-xl bg-white/6 px-3 py-2.5 text-left text-slate-200 transition-colors duration-200 hover:bg-white/10"
+                  >
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">{result.title}</p>
+                      <p className="truncate text-xs text-slate-400">{result.subtitle}</p>
+                    </div>
+                    <span className="text-[10px] uppercase tracking-wide text-blue-200">{result.type}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <div className="mb-3 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
             Navigation
           </div>
