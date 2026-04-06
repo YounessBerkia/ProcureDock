@@ -20,7 +20,7 @@ Webbasiertes IT-Beschaffungs-Dashboard, entwickelt als Portfolioprojekt für die
 
 ProcureDock ist kein reales Produkt für den produktiven Einsatz, sondern ein persönliches Bewerbungs- und Lernprojekt für die IHK Wiesbaden. Ich wollte besser verstehen, wie solche internen Beschaffungs- oder Verwaltungs-Dashboards aufgebaut sind, welche Bereiche typischerweise dazugehören und wie so etwas technisch umgesetzt werden kann.
 
-Dafür habe ich mich in das Thema eingelesen und auf dieser Grundlage ein eigenes Beispiel-Dashboard gebaut, das typische Bausteine wie Preisvergleich, Budgetübersicht und Lieferantenverwaltung in einer Webanwendung zusammenführt. Das Projekt ist also vor allem ein praktischer Versuch, einmal selbst nachzubauen, wie solche Systeme ungefähr aussehen und funktionieren könnten.
+Dafür habe ich mich in das Thema eingelesen und auf dieser Grundlage ein eigenes Beispiel-Dashboard gebaut. Dieses hat typische Bausteine wie Preisvergleich, Budgetübersicht und Lieferantenverwaltung in einer Webanwendung zusammenführt. Das Projekt ist also vor allem ein praktischer Versuch, einmal selbst nachzubauen, wie solche Systeme ungefähr aussehen und funktionieren könnten.
 
 ---
 
