@@ -18,9 +18,9 @@ Webbasiertes IT-Beschaffungs-Dashboard, entwickelt als Portfolioprojekt für die
 
 ## Was ist ProcureDock?
 
-In vielen IT-Abteilungen läuft die Beschaffung noch über Excel-Listen, manuelle Preisrecherchen und Bestellungen per E-Mail. ProcureDock zeigt, wie das einfacher geht: ein zentrales Dashboard, das Preisvergleiche, Budgetverfolgung und Lieferantenbewertungen an einem Ort zusammenführt.
+ProcureDock ist kein reales Produkt für den produktiven Einsatz, sondern ein persönliches Bewerbungs- und Lernprojekt für die IHK Wiesbaden. Ich wollte besser verstehen, wie solche internen Beschaffungs- oder Verwaltungs-Dashboards aufgebaut sind, welche Bereiche typischerweise dazugehören und wie so etwas technisch umgesetzt werden kann.
 
-Das Projekt entstand aus dem Wunsch, typische Abläufe aus dem IT-Einkauf in eine echte Webanwendung zu übersetzen — mit realem Backend, echter Datenbank und produktionsnahem Deployment.
+Dafür habe ich mich in das Thema eingelesen und auf dieser Grundlage ein eigenes Beispiel-Dashboard gebaut, das typische Bausteine wie Preisvergleich, Budgetübersicht und Lieferantenverwaltung in einer Webanwendung zusammenführt. Das Projekt ist also vor allem ein praktischer Versuch, einmal selbst nachzubauen, wie solche Systeme ungefähr aussehen und funktionieren könnten.
 
 ---
 
