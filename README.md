@@ -11,12 +11,14 @@ Webbasiertes IT-Beschaffungs-Dashboard, entwickelt als Portfolioprojekt für die
 ## Demo
 
 <p align="center">
-  <strong>Desktop</strong><br />
+  <strong>Primary Demo · Desktop</strong><br />
+  <sub>Vollansicht des Dashboards mit Preisvergleich, Budgetverwaltung und Lieferantenübersicht.</sub><br /><br />
   <img src="assets/demo.gif" alt="ProcureDock Desktop Demo" width="900" />
 </p>
 
 <p align="center">
-  <strong>Mobile</strong><br />
+  <strong>Mobile Preview</strong><br />
+  <sub>Kompakte Ansicht, um das Layout und die Nutzung auf kleineren Displays zu zeigen.</sub><br /><br />
   <img src="assets/mobile-demo.gif" alt="ProcureDock Mobile Demo" width="260" />
 </p>
 
